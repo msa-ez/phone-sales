@@ -39,7 +39,7 @@
                 <v-row>
                     <v-card
                         class="mx-auto"
-                        style="height:300px; width:300px; margin-bottom:20px; text-align: center;"
+                        style="height:300px;  margin-bottom:20px; text-align: center;"
                         outlined
                     >
                         <v-list-item>
@@ -147,7 +147,7 @@
 
 <style>
     .video-card {
-        width:300px; 
+         
         margin-left:4.5%; 
         margin-top:50px; 
         margin-bottom:50px;

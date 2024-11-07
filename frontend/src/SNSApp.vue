@@ -4,43 +4,37 @@
     <v-app id="inspire">
         <div>
             <v-app-bar color="primary" app clipped-left flat>
-                <v-toolbar-title>
-                    <span class="second-word font uppercase"
-                        style="font-weight:700;"
-                    >
-                        <v-app-bar-nav-icon
-                            @click="openSideBar()"
-                            style="z-index:1;
-                            height:56px;
-                            width:30px;
-                            margin-right:10px;
-                            font-weight:300;
-                            font-size:55px;"
-                        >
-                            <div style="line-height:100%;">≡</div>
-                        </v-app-bar-nav-icon>
-                    </span>
-                </v-toolbar-title>
-                <span v-if="urlPath!=null" 
-                    class="mdi mdi-home" 
-                    key="" 
-                    to="/" 
-                    @click="goHome()"
-                    style="margin-left:10px; font-size:20px; cursor:pointer;"
-		        ></span> 
+                <v-btn @click="openSideBar()" class="mr-2" icon text color="white"
+                    style="cursor: pointer;"
+                >
+                    <v-icon>mdi-menu</v-icon>
+                </v-btn>
+                <!-- <v-btn v-if="urlPath!=null" @click="goHome()" icon text color="white"
+                    style="cursor: pointer;"
+                >
+                    <v-icon>mdi-home</v-icon>
+                </v-btn> -->
                 <v-spacer></v-spacer>
-
             </v-app-bar>
 
             <v-navigation-drawer app clipped flat v-model="sideBar">
                 <v-list>
                     <v-list-item
                         class="px-2"
+                        to="/"
+                        @click="goHome()"
+                        color="primary"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
+                    >
+                        Home
+                    </v-list-item>
+                    <v-list-item
+                        class="px-2"
                         key="specComparations"
                         to="/specs/specComparations"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
                         단말기 스펙 비교
                     </v-list-item>
@@ -51,9 +45,9 @@
                         to="/specs/specs"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        단말기스펙
+                        단말기 스펙
                     </v-list-item>
 
 
@@ -63,9 +57,9 @@
                         to="/orders/orders"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        Order
+                        주문
                     </v-list-item>
 
 
@@ -75,9 +69,9 @@
                         to="/marketings/retargettings"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        Retargetting
+                        리타겟팅
                     </v-list-item>
 
 
@@ -87,9 +81,9 @@
                         to="/insurances/insuranceSubscriptions"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        InsuranceSubscription
+                        보험가입
                     </v-list-item>
 
 
@@ -99,9 +93,9 @@
                         to="/payments/payments"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        Payment
+                        결제
                     </v-list-item>
 
 
@@ -112,9 +106,9 @@
                         to="/customers/customers"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        Customer
+                        고객
                     </v-list-item>
 
                     <v-list-item
@@ -123,12 +117,10 @@
                         to="/customers/messages"
                         @click="changeUrl()"
                         color="primary"
-                        style="font-weight:700;"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
                     >
-                        Message
+                        메시지
                     </v-list-item>
-
-
                 </v-list>
             </v-navigation-drawer>
         </div>
@@ -138,54 +130,33 @@
                 <router-view></router-view>
             </v-container>
             <v-container style="padding:0px;" v-else fluid>
-                <div style="width:100%; margin:0px 0px 20px 0px; position: relative;">
-                    <v-img style="width:100%; height:300px;"
-                        src=""
+                <div style="width:100%; position: relative;">
+                    <v-img style="width:100%; height:200px;"
+                        src="/image/main2.png"
                     ></v-img>
                     <div class="App-main-text-overlap"></div>
                     <div class="App-sub-text-overlap"></div>
                 </div>
-                <v-row>
-                    <v-col cols="4" class="d-flex justify-center" v-for="(aggregate, index) in aggregate" :key="index">
+                <v-row class="pa-0 ma-0">
+                    <v-col cols="4" class="pa-0 pa-0" v-for="(aggregate, index) in aggregate" :key="index">
                         <div 
-                            class="flip-card"
-                            @mouseover="flipCard(index)"
-                            @mouseleave="unflipCard(index)"
-                            :class="{ 'is-flipped': flipped[index] }"
+                            class="flip-card pa-4"
                         >
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <v-card
-                                        class="mx-auto"
-                                        style="width:300px; min-height: 310px; margin-bottom:20px; text-align: center; border-radius: 10px;"
-                                        outlined
-                                    >
-                                        <v-list-item style="padding:15px; margin:0px;">
-                                            <v-img style="width:100%; height:120px; border-radius: 10px;" :src="aggregate.ImageUrl"></v-img>
-                                        </v-list-item>
-                                        <div style="text-align: left; padding:10px 15px 15px 15px; margin-top:-10px;">
-                                            <h2>{{ aggregate.title }}</h2>
-                                            <div>{{ aggregate.description }}</div>
-                                        </div>
-                                    </v-card>
+                            <v-card
+                                :key="aggregate.key"
+                                :to="aggregate.route"
+                                @click="changeUrl()"
+                                class="mx-auto main-card pa-4"
+                                style="text-align: center; border-radius: 10px;"
+                                outlined
+                            >
+                                <div class="d-flex justify-center" style="width:120px; height:120px; border-radius: 10px; margin: 0 auto; background-color:white;">
+                                    <v-img style="width:100%; height:100%; object-fit:contain; border-radius: 10px;" :src="aggregate.ImageUrl"></v-img>
                                 </div>
-                                <div class="flip-card-back">
-                                    <v-card
-                                        color="primary"
-                                        class="mx-auto"
-                                        style="width:300px; min-height: 310px; margin-bottom:20px; text-align: center; border-radius: 10px;"
-                                        outlined
-                                        :key="aggregate.key"
-                                        :to="aggregate.route"
-                                        @click="changeUrl()"
-                                    >
-                                        <v-list-item style="padding:15px; margin:0px;">
-                                            <v-img style="width:100%; height:120px; border-radius: 10px;" :src="aggregate.ImageUrl"></v-img>
-                                        </v-list-item>
-                                        <h2 style="color:white;">{{ aggregate.title }} 관리</h2>
-                                    </v-card>
+                                <div style="text-align: center;">
+                                    <h2 class="main-card-title">{{ aggregate.title }}</h2>
                                 </div>
-                            </div>
+                            </v-card>
                         </div>
                     </v-col>
                 </v-row>
@@ -212,58 +183,57 @@ export default {
                 description: '', 
                 key: 'specComparations', 
                 route: '/specs/specComparations',
-                ImageUrl: '',
+                ImageUrl: '/image/Specification1.png',
             },
             { 
-                title: '단말기스펙', 
+                title: '단말기 스펙', 
                 description: '', 
                 key: 'specs', 
                 route: '/specs/specs',
-                ImageUrl: '',
+                ImageUrl: '/image/Specification2.png',
             },
             { 
-                title: 'Order', 
+                title: '주문', 
                 description: '', 
                 key: 'orders', 
                 route: '/orders/orders',
-                ImageUrl: '',
+                ImageUrl: '/image/order.png',
             },
             { 
-                title: 'Retargetting', 
+                title: '리타게팅', 
                 description: '', 
                 key: 'retargettings', 
                 route: '/marketings/retargettings',
-                ImageUrl: '',
+                ImageUrl: '/image/retargettings.png',
             },
             { 
-                title: 'InsuranceSubscription', 
+                title: '보험가입', 
                 description: '', 
                 key: 'insuranceSubscriptions', 
                 route: '/insurances/insuranceSubscriptions',
-                ImageUrl: '',
+                ImageUrl: '/image/insurance.png',
             },
             { 
-                title: 'Payment', 
+                title: '결제', 
                 description: '', 
                 key: 'payments', 
                 route: '/payments/payments',
-                ImageUrl: '',
+                ImageUrl: '/image/payment.png',
             },
             { 
-                title: 'Customer', 
+                title: '고객', 
                 description: '', 
                 key: 'customers', 
                 route: '/customers/customers',
-                ImageUrl: '',
+                ImageUrl: '/image/customer.png',
             },
             { 
-                title: 'Message', 
+                title: '메시지', 
                 description: '', 
                 key: 'messages', 
                 route: '/customers/messages',
-                ImageUrl: '',
+                ImageUrl: '/image/message.png',
             },
-            
         ],
     }),
     

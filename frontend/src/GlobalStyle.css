@@ -43,12 +43,25 @@
     text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white !important;
 }
 
+.delete-input-detail .v-text-field__details {
+  display: none !important;
+}
+
 /* 메인 페이지 카드 뒤집기 스타일 */
 .flip-card {
   perspective: 1000px !important;
-  width: 300px !important;
-  height: 300px !important;
+  height: 200px !important;
 }
+
+.main-card:hover {
+  background-color:#1976D2;
+  cursor: pointer;
+}
+
+.main-card:hover .main-card-title {
+  color:white;
+}
+
 .flip-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg) !important;
 }
@@ -68,4 +81,10 @@
 }
 .flip-card-back {
   transform: rotateY(180deg) !important;
+}
+
+.color-picker-btn {
+  width:16px !important;
+  height:16px !important;
+  margin-right:5px;
 }

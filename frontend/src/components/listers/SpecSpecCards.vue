@@ -8,7 +8,7 @@
         >
             <v-row>
                 <v-list-item class="d-flex" style="background-color: white;">
-                    <h1 class="align-self-center ml-3">단말기스펙</h1>
+                    <h1 class="align-self-center ml-3">단말기 스펙</h1>
                     <div class="secondary-text-color" style="margin-left:30px;"></div>
                 </v-list-item>
             </v-row>
@@ -39,7 +39,7 @@
                 <v-row>
                     <v-card
                         class="mx-auto"
-                        style="height:300px; width:300px; margin-bottom:20px; text-align: center;"
+                        style="height:300px;  margin-bottom:20px; text-align: center;"
                         outlined
                     >
                         <v-list-item>
@@ -61,7 +61,7 @@
                                 color="primary"
                                 style="font-weight:500; font-size:20px; padding:15px; border:solid 2px; max-width:250px; overflow:hidden"
                             >
-                                단말기스펙 등록
+                                단말기 스펙 등록
                             </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -101,6 +101,7 @@
             } 
 
             var temp = await axios.get(axios.fixUrl('/specs'))
+            console.log('temp : ', temp.data._embedded.specs)
             me.values = temp.data._embedded.specs;
             
             me.newValue = {
@@ -109,6 +110,7 @@
                 'phoneType': '',
                 'image': {},
                 'manufacturer': '',
+                'price': ''
             }
         },
         methods:{
@@ -147,7 +149,7 @@
 
 <style>
     .video-card {
-        width:300px; 
+         
         margin-left:4.5%; 
         margin-top:50px; 
         margin-bottom:50px;

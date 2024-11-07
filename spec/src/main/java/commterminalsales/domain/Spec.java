@@ -27,6 +27,8 @@ public class Spec {
 
     private String phoneType;
 
+    private Long price;
+
     @Embedded
     private Photo image;
 

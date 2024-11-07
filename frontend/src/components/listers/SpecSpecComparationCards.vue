@@ -1,82 +1,55 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-card-title>
-                스펙 상세 조회
-            </v-card-title>
-            <v-card-text>
-                <v-text-field
-                    v-model="searchParams.color"
-                    label="색상"
-                ></v-text-field>
-                <v-select
-                    v-model="searchParams.manufacturer"
-                    :items="manufacturers"
-                    label="제조사"
-                ></v-select>
-                <v-btn @click="getSpecDetail" color="primary">조회</v-btn>
-                <v-list>
-                    <v-list-item-group>
-                        <template v-if="specDetails.length === 0">
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>조회된 스펙이 없습니다.</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-                        </template>
-                        <v-list-item v-for="(spec, index) in specDetails" :key="index">
+    <div>
+        <h1 style="padding-left:17px;">
+            단말기 스펙 비교
+        </h1>
+        <v-row class="ma-0 pa-0">
+            <v-col v-for="n in 3" :key="n" class="pa-0">
+                <v-card-text>
+                    <v-select
+                        v-model="selectedSpecs[n - 1]"
+                        :items="specDetails.map(spec => spec.spec)"
+                        label="기종 선택"
+                        outlined
+                        class="delete-input-detail"
+                    ></v-select>
+                    <template v-if="!selectedSpecs[n - 1]">
+                        <v-list-item class="pa-0">
                             <v-list-item-content>
-                                <v-list-item-title>{{ spec.spec }}</v-list-item-title>
-                                <v-list-item-subtitle>{{ spec.phoneColor }} - {{ spec.phoneType }}</v-list-item-subtitle>
-                                <Photo v-if="spec.image" v-model="spec.image" :editMode="false" />
-                                <v-btn @click="addToComparison(spec)" color="success">비교 추가</v-btn>
+                                <v-list-item-title>선택된 기종이 없습니다.</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-            </v-card-text>
-        </v-card>
-        <v-card>
-            <v-card-title>
-                비교 목록
-            </v-card-title>
-            <v-card-text>
-                <v-row>
-                    <v-col
-                        v-for="(item, index) in comparisonList"
-                        :key="index"
-                        cols="12"
-                        md="4"
-                    >
-                        <v-card>
-                            <v-card-title>{{ item.spec }}</v-card-title>
-                            <v-card-subtitle>{{ item.phoneColor }} - {{ item.phoneType }}</v-card-subtitle>
-                            <v-img
-                                v-if="item.image"
-                                :src="item.image.imgFile"
-                                height="200px"
-                                class="white--text align-end"
-                                gradient="to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)"
-                            >
-                                <v-card-actions>
-                                    <v-btn @click="removeFromComparison(index, item.comparationId)" color="red">비교 목록에서 제거</v-btn>
-                                    <v-btn @click="openOrderDialog(item.productId)" color="blue">주문</v-btn>
-                                </v-card-actions>
-                            </v-img>
-                        </v-card>
-                    </v-col>
-                </v-row>
-            </v-card-text>
-        </v-card>
-
-
-        <!-- Order Dialog -->
+                    </template>
+                    <div v-for="(spec, index) in filteredSpecs(n - 1)" :key="index">
+                        <v-card-title>{{ spec.spec }}</v-card-title>
+                        <v-card-subtitle>{{ spec.phoneColor }} - {{ spec.phoneType }}</v-card-subtitle>
+                        <v-card-subtitle>가격 : {{ spec.price }} 원</v-card-subtitle>
+                        <div class="image-container mb-2">
+                            <Photo v-if="spec.image" v-model="spec.image" :editMode="false" />
+                            <!-- 각 이미지에 대해 개별적으로 선택된 색상을 적용 -->
+                            <div class="overlay" :style="{ backgroundColor: selectedColors[n - 1] || 'transparent', opacity: 0.1 }"></div>
+                        </div>
+                        <v-row class="ma-0 pa-0 justify-center">
+                            <v-btn v-for="(item, colorIndex) in colors" 
+                                :key="colorIndex"
+                                class="color-picker-btn"
+                                :class="{'selected-color': selectedColors[n - 1] === item.color}"
+                                small
+                                fab
+                                :color="item.color"
+                                @click="setColor(n - 1, item.color)" 
+                            ></v-btn>
+                        </v-row>
+                    </div>
+                </v-card-text>
+            </v-col>
+        </v-row>
         <v-dialog v-model="orderDialog" max-width="600px">
             <template >
                 <OrderOrder :editMode=true :isNew=true v-model="selectedProduct" @close="orderDialog = false" />
             </template>
         </v-dialog>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -91,6 +64,12 @@
         },
         data() {
             return {
+                colors: [
+                    { type: 'Brown', color: '#964B00' },
+                    { type: 'deepRed', color: '#8B0000' },
+                    { type: 'Black', color: '#000000' }
+                ],
+                selectedSpec: null,
                 valid: false,
                 specComparation: {
                     productId: '',
@@ -109,14 +88,28 @@
                     required: value => !!value || '필수 항목입니다.'
                 },
                 orderDialog: false, // Control the visibility of the order dialog
-                selectedProduct: null // Store the selected product ID for the order
+                selectedProduct: null, // Store the selected product ID for the order
+                selectedSpecs: [null, null, null],
+                selectedColors: [null, null, null],
             };
         },
         async created() {
             this.manufacturers = await this.fetchManufacturers();
             await this.loadComparisonList(); // Load comparison list on page load
+            await this.getSpecDetail();  // 스펙 상세 정보를 미리 로드
+        },
+        computed: {
+            filteredSpecs() {
+                return (index) => {
+                    return this.specDetails.filter(spec => spec.spec === this.selectedSpecs[index]);
+                };
+            }
         },
         methods: {
+            setColor(index, color) {
+                // 각 선택된 스펙에 대해 선택된 색상을 설정
+                this.$set(this.selectedColors, index, color);
+            },
             async fetchManufacturers() {
                 return ['Samsung', 'Apple', 'LG', 'Nokia']; // Example manufacturers
             },
@@ -196,9 +189,29 @@
 
 <style>
     .video-card {
-        width:300px; 
         margin-left:4.5%; 
         margin-top:50px; 
         margin-bottom:50px;
+    }
+    
+    .image-container {
+        position: relative;
+        display: inline-block;
+        height: auto; /* 이미지와 동일한 높이 */
+        display: flex;
+        justify-content: center; /* 수평 중앙 정렬 */
+        align-items: center; /* 수직 중앙 정렬 */
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;  /* 클릭 이벤트가 아래로 전달되도록 설정 */
+    }
+    .selected-color {
+        border: 2px solid yellow !important; /* 선택된 색상에 노란색 테두리 추가 */
     }
 </style>
