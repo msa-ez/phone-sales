@@ -4,14 +4,14 @@
             Manufacturer
         </v-card-title>
         <v-card-text>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode" style="">
                 <v-select
                         v-model="newValue"
                         :label="'name'"
                         :items="manufacturerList"
                 ></v-select>
             </div>
-            <div v-else style="margin-top:-20px;">
+            <div v-else style="">
                 Manufacturer : {{ value }}
             </div>
         </v-card-text>

@@ -1,15 +1,19 @@
 <template>
     <div>
-        <div v-if="editMode" style="margin-top:-20px;">
+        <div v-if="editMode" style="">
             <v-textarea v-if="multiLine"
                     :label="label" 
                     v-model="value"
                     @change="change"
+                    outlined
+                    class="delete-input-detail"
             />
             <v-text-field v-else
                     :label="label" 
                     v-model="value"
                     @change="change"
+                    outlined
+                    class="delete-input-detail"
             />
         </div>
         <div v-else>
