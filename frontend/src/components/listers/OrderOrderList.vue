@@ -1,10 +1,10 @@
 <template>
     <div>
-    <h1>Order</h1>
+    <h1>주문</h1>
         <v-row>
             <v-card
                 class="mx-auto"
-                style="height:300px;  margin-bottom:20px; text-align: center;"
+                style="height:300px; width:300px; margin-bottom:20px; text-align: center;"
                 outlined
             >
                 <v-list-item>
@@ -26,7 +26,7 @@
                         color="primary"
                         style="font-weight:500; font-size:20px; padding:15px; border:solid 2px; max-width:250px; overflow:hidden"
                     >
-                        Order 등록
+                    주문 등록
                     </v-btn>
                 </v-card-actions>
             </v-card>

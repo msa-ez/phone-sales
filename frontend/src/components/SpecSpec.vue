@@ -21,7 +21,7 @@
             <String label="기종" v-model="value.phoneType" :editMode="editMode" :inputUI="''"/>
             <Number label="가격" v-model="value.price" :editMode="editMode" :inputUI="''"/>
             <Photo offline label="Image" v-model="value.image" :editMode="editMode" @change="change"/>
-            <Manufacturer offline label="Manufacturer" v-model="value.manufacturer" :editMode="editMode" @change="change"/>
+            <Manufacturer offline label="제조업체" v-model="value.manufacturer" :editMode="editMode" @change="change"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">

@@ -7,25 +7,25 @@
 
         <v-card-text>
             <div>
-                <Number label="OrderId" v-model="item.orderId" :editMode="editMode" @change="change" />
+                <Number label="주문ID" v-model="item.orderId" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <String label="ProductId" v-model="item.productId" :editMode="editMode" @change="change" />
+                <String label="상품ID" v-model="item.productId" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <Boolean label="CustomerGender" v-model="item.customerGender" :editMode="editMode" @change="change" />
+                <Boolean label="고객 성별" v-model="item.customerGender" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <String label="CustomerRegion" v-model="item.customerRegion" :editMode="editMode" @change="change" />
+                <String label="고객 지역" v-model="item.customerRegion" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <Boolean label="Insurance" v-model="item.insurance" :editMode="editMode" @change="change" />
+                <Boolean label="보험" v-model="item.insurance" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <String label="Manufacturer" v-model="item.manufacturer" :editMode="editMode" @change="change" />
+                <String label="제조업체" v-model="item.manufacturer" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <String label="PhoneColor" v-model="item.phoneColor" :editMode="editMode" @change="change" />
+                <String label="휴대폰 색상" v-model="item.phoneColor" :editMode="editMode" @change="change" />
             </div>
         </v-card-text>
     </v-card>

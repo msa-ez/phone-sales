@@ -1,7 +1,7 @@
 <template>
     <v-card outlined>
         <v-card-title>
-            Retargetting # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
+            리타게팅 # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
         </v-card-title>
 
         <v-card-text>

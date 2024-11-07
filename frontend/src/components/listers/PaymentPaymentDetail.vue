@@ -1,7 +1,7 @@
 <template>
     <v-card outlined>
         <v-card-title>
-            Payment # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
+            결제 # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
         </v-card-title>
 
         <v-card-text>

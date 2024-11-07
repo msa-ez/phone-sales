@@ -4,7 +4,7 @@
         <v-row>
             <v-card
                 class="mx-auto"
-                style="height:300px;  margin-bottom:20px; text-align: center;"
+                style="height:300px; width:300px; margin-bottom:20px; text-align: center;"
                 outlined
             >
                 <v-list-item>
@@ -71,7 +71,7 @@
                     <CustomerMessage :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
-                            style="postition:absolute; top:2%; right:2%"
+                            style="position:absolute; top:2%; right:2%"
                             @click="closeDialog()"
                             depressed 
                             icon 

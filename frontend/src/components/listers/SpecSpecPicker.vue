@@ -27,7 +27,7 @@
                                 Image :  {{item.image }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
-                                Manufacturer :  {{item.manufacturer }}
+                                제조업체 :  {{item.manufacturer }}
                             </v-list-item-subtitle>
                         </v-list-item-content>
 

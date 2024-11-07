@@ -1,8 +1,5 @@
 <template>
     <div style="margin: 0 -15px 0 -15px;">
-        <v-card-title>
-            Manufacturer
-        </v-card-title>
         <v-card-text>
             <div v-if="editMode" style="">
                 <v-select
@@ -12,7 +9,7 @@
                 ></v-select>
             </div>
             <div v-else style="">
-                Manufacturer : {{ value }}
+                제조업체 : {{ value }}
             </div>
         </v-card-text>
     </div>

@@ -3,8 +3,9 @@
     <h1>Customer</h1>
         <v-row>
             <v-card
+                @click="openDialog=true;"
                 class="mx-auto"
-                style="height:300px;  margin-bottom:20px; text-align: center;"
+                style="height:300px; width:300px; margin-bottom:20px; text-align: center;"
                 outlined
             >
                 <v-list-item>
@@ -22,7 +23,6 @@
                         class="mx-auto"
                         outlined
                         rounded
-                        @click="openDialog=true;"
                         color="primary"
                         style="font-weight:500; font-size:20px; padding:15px; border:solid 2px; max-width:250px; overflow:hidden"
                     >

@@ -15,7 +15,7 @@
                 <String label="PhoneType" v-model="item.phoneType" :editMode="editMode" @change="change" />
             </div>
             <Photo offline label="Image" v-model="item.image" :editMode="false" @change="change" />
-            <Manufacturer offline label="Manufacturer" v-model="item.manufacturer" :editMode="false" :key="false" @change="change" />
+            <Manufacturer offline label="제조업체" v-model="item.manufacturer" :editMode="false" :key="false" @change="change" />
         </v-card-text>
 
         <v-card-actions>

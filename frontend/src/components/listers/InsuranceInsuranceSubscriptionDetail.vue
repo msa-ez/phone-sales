@@ -1,7 +1,7 @@
 <template>
     <v-card outlined>
         <v-card-title>
-            InsuranceSubscription # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
+            보험가입 # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
         </v-card-title>
 
         <v-card-text>

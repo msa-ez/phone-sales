@@ -28,6 +28,18 @@
                     >
                         Home
                     </v-list-item>
+
+                    <v-list-item
+                        class="px-2"
+                        key="specs"
+                        to="/specs/specs"
+                        @click="changeUrl()"
+                        color="primary"
+                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
+                    >
+                        단말기 스펙 등록
+                    </v-list-item>
+
                     <v-list-item
                         class="px-2"
                         key="specComparations"
@@ -41,18 +53,6 @@
 
                     <v-list-item
                         class="px-2"
-                        key="specs"
-                        to="/specs/specs"
-                        @click="changeUrl()"
-                        color="primary"
-                        style="font-weight:700; border-bottom: 1px solid #e0e0e0;"
-                    >
-                        단말기 스펙
-                    </v-list-item>
-
-
-                    <v-list-item
-                        class="px-2"
                         key="orders"
                         to="/orders/orders"
                         @click="changeUrl()"
@@ -61,7 +61,6 @@
                     >
                         주문
                     </v-list-item>
-
 
                     <v-list-item
                         class="px-2"
@@ -74,7 +73,6 @@
                         리타겟팅
                     </v-list-item>
 
-
                     <v-list-item
                         class="px-2"
                         key="insuranceSubscriptions"
@@ -86,7 +84,6 @@
                         보험가입
                     </v-list-item>
 
-
                     <v-list-item
                         class="px-2"
                         key="payments"
@@ -97,8 +94,6 @@
                     >
                         결제
                     </v-list-item>
-
-
 
                     <v-list-item
                         class="px-2"
@@ -179,18 +174,18 @@ export default {
         ImageUrl: '',
         aggregate: [
             { 
+                title: '단말기 스펙 등록', 
+                description: '', 
+                key: 'specs', 
+                route: '/specs/specs',
+                ImageUrl: '/image/Specification2.png',
+            },
+            { 
                 title: '단말기 스펙 비교', 
                 description: '', 
                 key: 'specComparations', 
                 route: '/specs/specComparations',
                 ImageUrl: '/image/Specification1.png',
-            },
-            { 
-                title: '단말기 스펙', 
-                description: '', 
-                key: 'specs', 
-                route: '/specs/specs',
-                ImageUrl: '/image/Specification2.png',
             },
             { 
                 title: '주문', 

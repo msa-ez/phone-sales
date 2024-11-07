@@ -9,10 +9,10 @@
         </template>
 
         <v-card-title v-if="value._links">
-            Retargetting # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
+            리타게팅 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
         </v-card-title >
         <v-card-title v-else>
-            Retargetting
+            리타게팅
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
