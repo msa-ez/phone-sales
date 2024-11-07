@@ -212,6 +212,6 @@
         pointer-events: none;  /* 클릭 이벤트가 아래로 전달되도록 설정 */
     }
     .selected-color {
-        border: 2px solid yellow !important; /* 선택된 색상에 노란색 테두리 추가 */
+        box-shadow: 0 0 0 3px #1976D2 !important; /* 선택된 색상에 외부 테두리 추가 */
     }
 </style>

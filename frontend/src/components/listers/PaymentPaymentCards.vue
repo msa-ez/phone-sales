@@ -146,7 +146,7 @@
 
 <style>
     .video-card {
-         
+        width:300px;
         margin-left:4.5%; 
         margin-top:50px; 
         margin-bottom:50px;
