@@ -1,5 +1,5 @@
 <template>
-    <v-card style="width:450px; height:100%;" outlined>
+    <v-card outlined>
         <template slot="progress">
             <v-progress-linear
                     color="primary-darker-1"
@@ -16,10 +16,10 @@
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
-            <String label="Spec" v-model="value.spec" :editMode="editMode" :inputUI="''"/>
-            <String label="PhoneColor" v-model="value.phoneColor" :editMode="editMode" :inputUI="''"/>
-            <String label="PhoneType" v-model="value.phoneType" :editMode="editMode" :inputUI="''"/>
-            <String label="Price" v-model="value.price" :editMode="editMode" :inputUI="''"/>
+            <String label="스펙" v-model="value.spec" :editMode="editMode" :inputUI="''"/>
+            <String label="색상" v-model="value.phoneColor" :editMode="editMode" :inputUI="''"/>
+            <String label="기종" v-model="value.phoneType" :editMode="editMode" :inputUI="''"/>
+            <Number label="가격" v-model="value.price" :editMode="editMode" :inputUI="''"/>
             <Photo offline label="Image" v-model="value.image" :editMode="editMode" @change="change"/>
             <Manufacturer offline label="Manufacturer" v-model="value.manufacturer" :editMode="editMode" @change="change"/>
         </v-card-text>

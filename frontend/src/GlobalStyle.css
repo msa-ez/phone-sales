@@ -88,3 +88,9 @@
   height:16px !important;
   margin-right:5px;
 }
+
+.v-dialog--fullscreen > .v-card {
+  margin-left:13.3% !important;
+  min-width:86.7% !important;
+  max-width:86.7% !important;
+}

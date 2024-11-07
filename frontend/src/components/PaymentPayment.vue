@@ -9,17 +9,30 @@
         </template>
 
         <v-card-title v-if="value._links">
-            Payment # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
+            결제 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
         </v-card-title >
         <v-card-title v-else>
-            Payment
+            결제
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
-            <BigDecimal offline label="Amount" v-model="value.amount" :editMode="editMode" @change="change"/>
-            <String label="Product" v-model="value.product" :editMode="editMode" :inputUI="''"/>
-            <String label="CustomerId" v-model="value.customerId" :editMode="editMode" :inputUI="''"/>
-            <String label="PaymentMethod" v-model="value.paymentMethod" :editMode="editMode" :inputUI="''"/>
+            <v-row class="ma-0 pa-0">
+                <v-col cols="2"></v-col>
+                <v-col cols="4">
+                    <v-card-title>주문하신 제품을 받으실 배송주소를 입력하세요</v-card-title>
+                    <BigDecimal offline label="Amount" v-model="value.amount" :editMode="editMode" @change="change"/>
+                    <String label="성" :editMode="editMode" :inputUI="''"/>
+                    <String label="이름" :editMode="editMode" :inputUI="''"/>
+                    <String label="Product" :editMode="editMode" :inputUI="''"/>
+                    <String label="Product" v-model="value.product" :editMode="editMode" :inputUI="''"/>
+                    <String label="CustomerId" v-model="value.customerId" :editMode="editMode" :inputUI="''"/>
+                    <String label="PaymentMethod" v-model="value.paymentMethod" :editMode="editMode" :inputUI="''"/>
+                </v-col>
+                <v-col cols="4">
+                    이메일로 영수증을 보내드리고,
+                </v-col>
+                <v-col cols="2"></v-col>
+            </v-row>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">

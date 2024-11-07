@@ -19,7 +19,6 @@
                         v-model="openDialog"
                         width="332.5"
                         fullscreen
-                        hide-overlay
                         transition="dialog-bottom-transition"
                 >
                     <SpecSpec :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="editMode" style="">
-            <v-text-field type="number" :label="label" v-model="value" @change="change"/>
+            <v-text-field type="number" :label="label" v-model="value" @change="change" outlined class="delete-input-detail"/>
         </div>
         <div v-else>
             {{label}} :  {{value}}
