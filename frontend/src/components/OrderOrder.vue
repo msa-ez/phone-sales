@@ -64,7 +64,7 @@
                     <v-row class="ma-0 pa-0"
                         style="font-size:14px;"
                     >
-                        <div>소개</div>
+                        <div>소계</div>
                         <v-spacer></v-spacer>
                         <div>₩{{ formattedPrice }} 원</div>
                     </v-row>
