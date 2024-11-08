@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-bottom:100px;">
         <h1 style="padding-left:17px;">
             단말기 스펙 비교
         </h1>
@@ -9,9 +9,10 @@
                     <v-select
                         v-model="selectedSpecs[n - 1]"
                         :items="specDetails.map(spec => spec.spec)"
-                        label="기종 선택"
+                        label="기종 선택" 
                         outlined
                         class="delete-input-detail"
+                        @change="(value) => addToComparison(value, n-1)"
                     ></v-select>
                     <template v-if="!selectedSpecs[n - 1]">
                         <v-list-item class="pa-0">
@@ -21,9 +22,6 @@
                         </v-list-item>
                     </template>
                     <div v-for="(spec, index) in filteredSpecs(n - 1)" :key="index">
-                        <v-card-title>{{ spec.spec }}</v-card-title>
-                        <v-card-subtitle>{{ spec.phoneColor }} - {{ spec.phoneType }}</v-card-subtitle>
-                        <v-card-subtitle>가격 : {{ spec.price }} 원</v-card-subtitle>
                         <div class="image-container mb-2">
                             <Photo v-if="spec.image" v-model="spec.image" :editMode="false" />
                             <!-- 각 이미지에 대해 개별적으로 선택된 색상을 적용 -->
@@ -40,15 +38,65 @@
                                 @click="setColor(n - 1, item.color)" 
                             ></v-btn>
                         </v-row>
+                        <!-- <v-card-title class="pa-0"
+                            style="font-size:24px !important; font-size:700 !important;"
+                        >요약</v-card-title> -->
+                        <v-divider class="mb-4 mt-4"></v-divider>
+                        <div class="text-center">
+                            <div v-if="spec.cm" class="mb-16 mt-12" style="font-size:56px; font-weight:700; padding:10px;">{{ spec.cm }}cm</div>
+                            <div v-else class="mb-16 mt-12" style="font-size:56px; font-weight:700; padding:10px;">크기 정보 없음</div>
+                            <div v-for="(item, index) in [
+                                {value: spec.phoneType, image: 'phoneType'},
+                                {value: spec.texture, image: 'texture'},
+                                {value: spec.chip, image: 'chip'}, 
+                                {value: spec.camera, image: 'camera'},
+                                {value: spec.battery, image: 'battery'},
+                                {value: spec.chargeType, image: 'chargeType'}
+                            ]" :key="index" class="mb-16">
+                                <template v-if="item.value">
+                                    <div class="text-center">
+                                        <img :src="`/image/${item.image}.jpeg`" style="width:50px; height:50px;">
+                                    </div>
+                                    <v-card-subtitle style="font-size:22px;">{{ item.value }}</v-card-subtitle>
+                                </template>
+                                <template v-else>
+                                    <div class="text-center">
+                                        <img :src="`/image/${item.image}.jpeg`" style="width:50px; height:50px;">
+                                    </div>
+                                    <v-card-subtitle style="font-size:56px;">-</v-card-subtitle>
+                                </template>
+                            </div>
+                            <v-card-subtitle v-if="spec.price">가격 : {{ formatPrice(spec.price) }} 원 부터</v-card-subtitle>
+                            <v-card-subtitle v-else>가격 정보 없음</v-card-subtitle>
+                            <v-btn @click="openOrderDialog(spec.productId)" color="primary">주문</v-btn>
+                        </div>
                     </div>
                 </v-card-text>
             </v-col>
         </v-row>
-        <v-dialog v-model="orderDialog" max-width="600px">
-            <template >
-                <OrderOrder :editMode=true :isNew=true v-model="selectedProduct" @close="orderDialog = false" />
-            </template>
-        </v-dialog>
+        <v-col style="margin-bottom:40px;">
+                <div class="text-center">
+                    <v-dialog
+                        v-model="orderDialog"
+                        width="332.5"
+                        fullscreen
+                        transition="dialog-bottom-transition"
+                    >
+                    <template >
+                        <OrderOrder :orderDialog="orderDialog" :editMode=true :isNew=true v-model="selectedProduct" @close="orderDialog = false" />
+                    </template>
+                    <v-btn
+                            style="position:absolute; top:2%; right:2%"
+                            @click="orderDialog = false"
+                            depressed
+                            icon 
+                            absolute
+                    >
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </v-dialog>
+            </div>
+        </v-col>
     </div>
 </template>
 
@@ -106,6 +154,9 @@
             }
         },
         methods: {
+            formatPrice(value) {
+                return new Intl.NumberFormat('ko-KR').format(value);
+            },
             setColor(index, color) {
                 // 각 선택된 스펙에 대해 선택된 색상을 설정
                 this.$set(this.selectedColors, index, color);
@@ -157,16 +208,21 @@
                     console.error('스펙 상세 조회 실패:', error);
                 }
             },
-            async addToComparison(spec) {
-                console.log('비교 목록에 추가됨:', spec);
-                this.specComparation.productId = spec._links.self.href.split('/').pop();
-                this.specComparation.manufacturer = spec.manufacturer;
+            async addToComparison(selectedSpec) {
+                const spec = this.specDetails.find(spec => spec.spec === selectedSpec);
+                if (spec) {
+                    console.log('비교 목록에 추가됨:', spec);
+                    spec.productId = spec._links.self.href.split('/').pop(); // productId 설정
+                    this.manufacturer = spec.manufacturer;
 
-                let response = await this.saveSpecComparation();
-                spec.comparationId = response.data._links.self.href.split('/').pop();
+                    let response = await this.saveSpecComparation();
+                    spec.comparationId = response.data._links.self.href.split('/').pop();
 
-                // Add the selected spec to the comparison list
-                this.comparisonList.push(spec);
+                    // Add the selected spec to the comparison list
+                    this.comparisonList.push(spec);
+                } else {
+                    console.error('선택된 기종을 찾을 수 없습니다.');
+                }
             },
             async removeFromComparison(index, comparationId) {
                 // Remove the spec from the comparison list
@@ -179,9 +235,20 @@
                 }
             },
             openOrderDialog(productId) {
+                // comparisonList에서 해당 productId를 가진 제품을 찾음
+                const selectedSpec = this.comparisonList.find(spec => spec.productId === productId);
 
-                this.selectedProduct = {productId: productId}; // Set the selected product ID
-                this.orderDialog = true; // Open the dialog
+                if (selectedSpec) {
+                    this.selectedProduct = {
+                        productId: selectedSpec.productId,
+                        price: selectedSpec.price, // 가격 정보 추가
+                        spec: selectedSpec.spec,
+                        image: selectedSpec.image // 이미지 정보 추가
+                    };
+                    this.orderDialog = true; // 다이얼로그 열기
+                } else {
+                    console.error('선택된 제품을 찾을 수 없습니다.');
+                }
             }
         }
     };

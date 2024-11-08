@@ -2,9 +2,9 @@
     <div style="margin: 0 -15px 0 -15px;">
         <v-card-text>
             <div v-if="editMode" style="">
-                <v-select
+                <v-select outlined
                         v-model="newValue"
-                        :label="'name'"
+                        :label="'제조사'"
                         :items="manufacturerList"
                 ></v-select>
             </div>

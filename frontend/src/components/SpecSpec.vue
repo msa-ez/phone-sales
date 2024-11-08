@@ -9,18 +9,23 @@
         </template>
 
         <v-card-title v-if="value._links">
-            단말기스펙 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
+            단말기 스펙 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
         </v-card-title >
         <v-card-title v-else>
-            단말기스펙
+            단말기 스펙
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
-            <String label="스펙" v-model="value.spec" :editMode="editMode" :inputUI="''"/>
-            <String label="색상" v-model="value.phoneColor" :editMode="editMode" :inputUI="''"/>
+            <String label="이름" v-model="value.spec" :editMode="editMode" :inputUI="''"/>
+            <Photo offline v-model="value.image" :editMode="editMode" @change="change"/>
             <String label="기종" v-model="value.phoneType" :editMode="editMode" :inputUI="''"/>
+            <Number label="cm" v-model="value.cm" :editMode="editMode" :inputUI="''"/>
+            <String label="칩셋 스펙" v-model="value.chip" :editMode="editMode" :inputUI="''"/>
+            <String label="카메라 스펙" v-model="value.camera" :editMode="editMode" :inputUI="''"/>
+            <String label="소재 스펙" v-model="value.texture" :editMode="editMode" :inputUI="''"/>
+            <String label="배터리 스펙" v-model="value.battery" :editMode="editMode" :inputUI="''"/>
+            <String label="충전 타입" v-model="value.chargeType" :editMode="editMode" :inputUI="''"/>
             <Number label="가격" v-model="value.price" :editMode="editMode" :inputUI="''"/>
-            <Photo offline label="Image" v-model="value.image" :editMode="editMode" @change="change"/>
             <Manufacturer offline label="제조업체" v-model="value.manufacturer" :editMode="editMode" @change="change"/>
         </v-card-text>
 
@@ -40,7 +45,7 @@
                     text
                     @click="save"
                 >
-                    스펙등록
+                    저장
                 </v-btn>
                 <v-btn
                     color="primary"

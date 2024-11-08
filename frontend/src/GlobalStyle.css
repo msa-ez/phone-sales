@@ -94,3 +94,7 @@
   min-width:86.7% !important;
   max-width:86.7% !important;
 }
+
+.v-card__subtitle {
+  padding:0px;
+}

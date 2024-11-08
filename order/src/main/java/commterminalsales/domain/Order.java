@@ -23,11 +23,19 @@ public class Order {
     @ElementCollection
     private List<String> options;
 
+    private String spec;
+
     private String customerId;
 
     private String address;
 
     private String insuranceOption;
+
+    private Long price;
+
+    private Long totalPrice;
+
+    private Integer qty;
 
     @PostPersist
     public void onPostPersist() {

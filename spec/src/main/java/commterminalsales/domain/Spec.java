@@ -27,6 +27,18 @@ public class Spec {
 
     private String phoneType;
 
+    private Double cm;
+
+    private String chip;
+
+    private String camera;
+
+    private String texture;
+
+    private String battery;
+    
+    private String chargeType;
+
     private Long price;
 
     @Embedded
