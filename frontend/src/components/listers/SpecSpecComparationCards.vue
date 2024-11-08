@@ -66,7 +66,7 @@
                                     <v-card-subtitle style="font-size:56px;">-</v-card-subtitle>
                                 </template>
                             </div>
-                            <v-card-subtitle v-if="spec.price">가격 : {{ formatPrice(spec.price) }} 원 부터</v-card-subtitle>
+                            <v-card-subtitle v-if="spec.price">가격 : {{ formatPrice(spec.price) }} 원</v-card-subtitle>
                             <v-card-subtitle v-else>가격 정보 없음</v-card-subtitle>
                             <v-btn @click="openOrderDialog(spec.productId)" color="primary">주문</v-btn>
                         </div>
